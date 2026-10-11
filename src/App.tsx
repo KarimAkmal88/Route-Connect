@@ -14,6 +14,7 @@ import { queryClient } from "./contexts/queryClientProvider"
 import NotFound from "./pages/NotFound"
 import ProtectedAuthRoute from "./protectedRoutes/ProtectedAuthRoute"
 import ProtectedRoute from "./protectedRoutes/ProtectedRoute"
+import PostDetails from "./pages/PostDetails"
 
 
 const router = createBrowserRouter([
@@ -27,6 +28,7 @@ const router = createBrowserRouter([
     path: '', element: <MainLayout />, children: [
       { index: true, element: (<ProtectedRoute><Feed /></ProtectedRoute>) },
       { path: 'profile', element: (<ProtectedRoute><Profile /></ProtectedRoute>) },
+      { path: '/posts/:postId', element: (<ProtectedRoute><PostDetails /></ProtectedRoute>) },
     ]
   },
   {

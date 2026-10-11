@@ -2,13 +2,13 @@ import { useMutation } from "@tanstack/react-query";
 import { useEffect, useRef, useState, type ChangeEvent } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { queryClient } from "../../contexts/queryClientProvider";
-import type { CreaPostI } from "../../interfaces/CreatPostI";
+import type { CreatePostI } from "../../interfaces/CreatPostI";
 import { postsServices } from "../../services/postsService";
 
 
 export default function CreatePost() {
 
-  const {register, handleSubmit, formState: {errors}, reset, control, resetField, getValues } = useForm<CreaPostI>();
+  const {register, handleSubmit, formState: {errors}, reset, control, resetField, getValues } = useForm<CreatePostI>();
   const imageRegistration = register('image');
   
   const {mutate, isPending, isError} = useMutation({
@@ -23,7 +23,7 @@ export default function CreatePost() {
     }
   })
 
-  function createPost(data: CreaPostI) {
+  function createPost(data: CreatePostI) {
     
     const formData = new FormData();
     if(data.body.trim()){
@@ -39,7 +39,6 @@ export default function CreatePost() {
   const imageWatch = useWatch({
     control,
     name: "image",
-    
   });
   const file = imageWatch?.[0];
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -94,7 +93,7 @@ export default function CreatePost() {
                 return true;
               }})}
               placeholder="What's on your mind?"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none text-black"
             />
             {errors.body && <p className="text-red-600">{errors.body.message}</p>}
           </div>

@@ -1,5 +1,6 @@
 import { Pen } from "lucide-react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import formatRelativeTime from "../../helpers/timeFormat";
 import { useAuth } from "../../hooks/useAuth";
 import type { PostI } from "../../interfaces/postI";
@@ -9,7 +10,7 @@ import EditPost from "./EditPost";
 
 
 
-export default function Post({ post }: { post: PostI }) {
+export default function Post({ post, showTopComment }: { post: PostI ; showTopComment: boolean }) {
 
   const { userData } = useAuth()
   const [isEditing, setIsEditing] = useState(false)
@@ -26,14 +27,18 @@ export default function Post({ post }: { post: PostI }) {
         </div>
         {post.user._id === userData?._id && (
           <>
-          <DeletePost postId={post._id} />
-          <Pen className="cursor-pointer" onClick={() => setIsEditing(true)}/>
+            <div className="flex flex-row justify-center items-center gap-3.5">
+              <DeletePost postId={post._id} />
+              <Pen className="cursor-pointer" onClick={() => setIsEditing(true)} />
+            </div>
           </>
         )}
       </div>
-      {isEditing ? <EditPost postId={post._id} body={post.body} onCancel={() => setIsEditing(false)}/> : post.body && <p className="mt-4">{post.body}</p>}
+      {isEditing ? <EditPost postId={post._id} body={post.body} onCancel={() => setIsEditing(false)} image={post.image} /> : post.body && <Link to={`/posts/${post._id}`} className="mt-4">{post.body}</Link>}
       {post.image && (
-        <img src={post.image} className="w-full object-cover mt-2" alt={post.user.name} />
+        <Link to={`/posts/${post._id}`}>
+          <img src={post.image} className="w-full object-cover mt-2" alt={post.user.name} />
+        </Link>
       )}
       <div className="w-full h-8 flex items-center px-3 my-3">
         <div className="bg-primary z-10 w-5 h-5 rounded-full flex items-center justify-center">
@@ -128,7 +133,7 @@ export default function Post({ post }: { post: PostI }) {
         </button>
       </div>
 
-      {post.topComment && <Comment comment={post.topComment} />}
+      {post.topComment && showTopComment &&<Comment comment={post.topComment} />}
     </div>
   )
 }

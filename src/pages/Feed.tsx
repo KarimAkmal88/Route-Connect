@@ -69,10 +69,10 @@ export default function Feed() {
 
             <div className="max-w-3xl my-10 mx-auto">
               <div className="grid gap-4 rounded-2xl bg-elevated border border-text-secondary text-text-primary">
-                <CreatePost getAllPosts={refetch} />
+                <CreatePost />
 
                 {posts.map((post) => (
-                  <Post key={post._id} post={post} />
+                  <Post key={post._id} post={post} showTopComment={true}/>
                 ))}
               </div>
             </div>

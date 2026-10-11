@@ -1,4 +1,4 @@
-export interface CreaPostI {
+export interface CreatePostI {
     body: string;
     image: FileList;
 }

@@ -1,7 +1,9 @@
+import type { GetPostResponse } from "../interfaces/GetPostResponse";
+import type { GetPostsResponse } from "../interfaces/getPostsResponse";
 import { apiClient } from "./apiClient";
 
 class PostsServices {
-    async getAllPosts() {
+    async getAllPosts(): Promise<GetPostsResponse> {
         const { data } = await apiClient.get('posts', {
             headers: {
                 token: localStorage.getItem('token')
@@ -19,8 +21,8 @@ class PostsServices {
         return data
     }
 
-    async CreatePost(formData: FormData){
-        const {data} = await apiClient.post('posts', formData , {
+    async CreatePost(formData: FormData) {
+        const { data } = await apiClient.post('posts', formData, {
             headers: {
                 token: localStorage.getItem('token')
             }
@@ -28,13 +30,22 @@ class PostsServices {
         return data;
     }
 
-    async EditPost(formData: FormData, postId: string){
-        const {data} = await apiClient.put('posts/' + postId, formData, {
+    async EditPost(formData: FormData, postId: string) {
+        const { data } = await apiClient.put('posts/' + postId, formData, {
             headers: {
                 token: localStorage.getItem('token')
             }
         })
         return data;
+    }
+
+    async GetPostDetail(postId: string): Promise<GetPostResponse> {
+        const { data } = await apiClient.get('posts/' + postId, {
+            headers: {
+                token: localStorage.getItem('token')
+            }
+        })
+        return data
     }
 }
 
