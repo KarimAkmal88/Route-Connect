@@ -2,6 +2,7 @@ import { Alert, Card, Skeleton } from "@heroui/react";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import Post from "../components/posts/Post";
+import Comments from "../components/comments/Comments";
 import { postsServices } from "../services/postsService";
 
 export default function PostDetails() {
@@ -46,6 +47,9 @@ export default function PostDetails() {
     }
 
     return (
-        <Post post={data.data.post} showTopComment={false}/>
+        <>
+            <Post post={data.data.post} showTopComment={false}/>
+            <Comments key={postId} postId={postId} />
+        </>
     );
 }

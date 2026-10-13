@@ -5,8 +5,10 @@ export interface CommentI {
     content?:        string;
     commentCreator: UserI;
     post:           string;
-    parentComment:  null;
-    likes:          string[];
+    parentComment?: string | null;
+    likes?:         string[];
+    repliesCount?:  number;
+    isReply?:       boolean;
     createdAt:      string;
     image?:         string;
 }
