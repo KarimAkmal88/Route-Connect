@@ -73,7 +73,9 @@ export default function Feed() {
       ) : (
         <div className="w-full">
           {isFetching && !isFetchingNextPage && posts.length > 0 && (
-            <Spinner className="mb-4 mx-auto block" size="sm" />
+            <div className=" mb-4 flex items-center justify-center">
+            <Spinner className="block" size="sm" />
+            </div>
           )}
 
           <div className="grid min-w-0 gap-5 text-text-primary">

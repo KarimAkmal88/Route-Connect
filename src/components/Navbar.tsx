@@ -37,12 +37,6 @@ export default function Navbar() {
             />
           </DropdownTrigger>
           <DropdownMenu aria-label="Profile Actions" variant="flat" className="bg-surface text-text-primary rounded-xl">
-            <DropdownItem key="profile">
-              <Link className="h-14 text-text-primary" to="/profile">
-                <p className="font-semibold">Your profile</p>
-                <p className="text-xs text-text-secondary">View your community profile</p>
-              </Link>
-            </DropdownItem>
             <DropdownItem key="logout" className="text-danger" onClick={logout}>
               Log Out
             </DropdownItem>
