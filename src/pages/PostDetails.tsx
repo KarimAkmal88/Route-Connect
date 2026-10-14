@@ -1,8 +1,8 @@
 import { Alert, Card, Skeleton } from "@heroui/react";
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
-import Post from "../components/posts/Post";
+import { useNavigate, useParams } from "react-router-dom";
 import Comments from "../components/comments/Comments";
+import Post from "../components/posts/Post";
 import { postsServices } from "../services/postsService";
 
 export default function PostDetails() {
@@ -14,6 +14,13 @@ export default function PostDetails() {
         queryFn: () => postsServices.GetPostDetail(postId),
         enabled: !!postId,
     });
+
+    const navigate = useNavigate();
+    function postIsDeleted() {
+        navigate("/", {
+            replace: true,
+        })
+    }
 
     if (isPending) {
         return <>
@@ -48,7 +55,7 @@ export default function PostDetails() {
 
     return (
         <>
-            <Post post={data.data.post} showTopComment={false}/>
+            <Post post={data.data.post} showTopComment={false} postIsDeleted={postIsDeleted} />
             <Comments key={postId} postId={postId} />
         </>
     );

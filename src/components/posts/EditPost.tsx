@@ -16,8 +16,11 @@ export default function EditPost({ postId, body, onCancel, image }: { postId: st
     mutationFn: (formData: FormData) => postsServices.EditPost(formData, postId),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['posts'],
+        queryKey: ['posts',],
       });
+      queryClient.invalidateQueries({
+        queryKey: ['post', postId],
+      })
       onCancel();
     }
   });

@@ -10,7 +10,7 @@ import EditPost from "./EditPost";
 
 
 
-export default function Post({ post, showTopComment }: { post: PostI ; showTopComment: boolean }) {
+export default function Post({ post, showTopComment, postIsDeleted }: { post: PostI; showTopComment: boolean; postIsDeleted?: () => void }) {
 
   const { userData } = useAuth()
   const [isEditing, setIsEditing] = useState(false)
@@ -28,7 +28,7 @@ export default function Post({ post, showTopComment }: { post: PostI ; showTopCo
         {post.user._id === userData?._id && (
           <>
             <div className="flex flex-row justify-center items-center gap-3.5">
-              <DeletePost postId={post._id} />
+              <DeletePost postId={post._id} postIsDeleted={postIsDeleted}/>
               <Pen className="cursor-pointer" onClick={() => setIsEditing(true)} />
             </div>
           </>
@@ -133,7 +133,7 @@ export default function Post({ post, showTopComment }: { post: PostI ; showTopCo
         </button>
       </div>
 
-      {post.topComment && showTopComment &&<Comment comment={post.topComment} />}
+      {post.topComment && showTopComment && <Comment comment={post.topComment} />}
     </div>
   )
 }

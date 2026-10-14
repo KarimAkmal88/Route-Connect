@@ -12,7 +12,7 @@ import { Eraser } from "lucide-react";
 import { queryClient } from "../../contexts/queryClientProvider";
 import { postsServices } from "../../services/postsService";
 
-export default function DeletePost({ postId }: { postId: string }) {
+export default function DeletePost({ postId, postIsDeleted }: { postId: string; postIsDeleted?: () => void }) {
 
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
 
@@ -22,7 +22,13 @@ export default function DeletePost({ postId }: { postId: string }) {
       queryClient.invalidateQueries({
         queryKey: ['posts'],
       });
+      queryClient.removeQueries({
+        queryKey: ['post', postId],
+      });
       onClose();
+      if (postIsDeleted) {
+        postIsDeleted();
+      }
     },
   });
   

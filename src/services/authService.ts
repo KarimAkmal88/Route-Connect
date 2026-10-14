@@ -10,16 +10,14 @@ class AuthServices {
         return data;
     }
 
-    async signIn(loginData : LoginData) {
-        const {data} = await apiClient.post('users/signin', loginData);
+    async signIn(loginData: LoginData) {
+        const { data } = await apiClient.post('users/signin', loginData);
         return data
     }
 
     async getUserData() {
-        const {data} = await apiClient.get('users/profile-data', {
-            headers: {
-                token: localStorage.getItem('token')
-            }
+        const { data } = await apiClient.get('users/profile-data', {
+
         })
         return data;
     }

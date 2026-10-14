@@ -1,14 +1,14 @@
+import { Alert, Button, Form, Input } from "@heroui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react"
+import axios from "axios";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 import { signInSchema, type LoginData } from "../schemas/signInSchema";
 import { authServices } from "../services/authService";
-import axios from "axios";
-import { Alert, Button, Form, Input } from "@heroui/react";
-import { EyeSlashFilledIcon, EyeFilledIcon } from '../types/Icons'
+import { EyeFilledIcon, EyeSlashFilledIcon } from '../types/Icons';
 import { getInputProps } from "../utils/helpers";
-import { useAuth } from "../hooks/useAuth";
 
 
 
@@ -24,7 +24,7 @@ export default function SignIn() {
   const [isLoading, setIsLoading] = useState(false);
   const { initializeSession, logout } = useAuth()
 
-  const { handleSubmit, register, formState: { errors }, reset } = useForm({ resolver: zodResolver(signInSchema), mode: 'onBlur' });
+  const { handleSubmit, register, formState: { errors }, reset, } = useForm({ resolver: zodResolver(signInSchema), mode: 'onBlur' });
   async function signIn(data: LoginData) {
     setErrMsg('');
     setSuccessMsg('');
@@ -36,7 +36,9 @@ export default function SignIn() {
       setSuccessMsg(response.message);
 
     } catch (error) {
-      logout();
+      if (localStorage.getItem('token')) {
+        logout();
+      }
       if (axios.isAxiosError(error)) {
         setErrMsg(error.response?.data.message);
         if (!error.response?.data.message) {

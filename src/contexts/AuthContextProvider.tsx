@@ -2,6 +2,7 @@ import { useEffect, useState, type ReactElement } from "react";
 import type { UserI } from "../interfaces/userI";
 import { authServices } from "../services/authService";
 import { authContext } from "./authContext";
+import { queryClient } from "./queryClientProvider";
 
 
 export default function AuthContextProvider({ children, }: { children: ReactElement }) {
@@ -33,6 +34,8 @@ export default function AuthContextProvider({ children, }: { children: ReactElem
         localStorage.removeItem('token');
         setIsLoggedIn(false);
         setUserData(undefined);
+        queryClient.clear();
+        
     }
 
     async function initializeSession(){
