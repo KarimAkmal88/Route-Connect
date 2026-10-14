@@ -49,9 +49,10 @@ export default function SignUp() {
 
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="flex items-center justify-center">
       <Form
-        className="w-full max-w-3xl grid gap-4 bg-surface m-auto text-text-primary border border-text-secondary px-2 rounded-xl p-6" onSubmit={handleSubmit(signUp)}>
+        className="w-full max-w-md grid gap-5 bg-surface m-auto text-text-primary border border-border rounded-2xl p-5 sm:p-8" onSubmit={handleSubmit(signUp)}>
+        <div className="mb-1"><h1 className="text-2xl font-bold tracking-tight">Join the community</h1><p className="mt-1 text-sm text-text-secondary">Create your account and start connecting.</p></div>
         <Input
           {...register('name')}
           {...getInputProps('text', 'Full Name')}
@@ -126,7 +127,7 @@ export default function SignUp() {
           type="date"
         />
 
-        <Select classNames={{ listbox: `bg-white`, trigger: `flex flex-row justify-between`, selectorIcon: `data-[open=true]:rotate-180` }}
+        <Select classNames={{ listbox: `bg-surface text-text-primary`, trigger: `flex flex-row justify-between`, selectorIcon: `data-[open=true]:rotate-180` }}
           items={gender}
           placeholder="Select your gender"
           {...register('gender')}
@@ -134,15 +135,15 @@ export default function SignUp() {
           {(gender) => <SelectItem>{gender.label}</SelectItem>}
         </Select>
 
-        <div className="flex gap-6 items-center justify-center">
-          <Button isLoading={isLoading} color="primary" type="submit" className="border border-text-secondary px-2 rounded-xl">
+        <div className="grid grid-cols-2 gap-3 mt-2">
+          <Button isLoading={isLoading} color="primary" type="submit" className="min-h-11 rounded-lg">
             Sign Up
           </Button>
-          <Button className="border border-text-secondary px-2 rounded-xl" onClick={() => reset()}>
+          <Button className="min-h-11 rounded-lg" onClick={() => reset()}>
             Reset
           </Button>
         </div>
-        <p className="text-text-primary">Already have an account? <Link to={'/signin'}>Login now</Link></p>
+        <p className="text-sm text-text-secondary">Already have an account? <Link className="text-secondary font-semibold hover:underline" to={'/signin'}>Login now</Link></p>
         {errMsg && (
           <Alert hideIcon color="danger" title={errMsg} variant="faded" classNames={{ base: "py-0 capitalize text-center" }} />
         )}

@@ -24,7 +24,7 @@ export default function PostDetails() {
 
     if (isPending) {
         return <>
-            <Card className="max-w-7xl space-y-5 p-4" radius="lg">
+            <Card className="w-full border border-border bg-surface space-y-5 p-5" radius="lg">
                 <Skeleton className="rounded-lg">
                     <div className="h-24 rounded-lg bg-default-300" />
                 </Skeleton>
@@ -55,8 +55,8 @@ export default function PostDetails() {
 
     return (
         <>
-            <Post post={data.data.post} showTopComment={false} postIsDeleted={postIsDeleted} />
-            <Comments key={postId} postId={postId} />
+            <div className="space-y-5 min-w-0"><Post post={data.data.post} showTopComment={false} postIsDeleted={postIsDeleted} />
+            <Comments key={postId} postId={postId} /></div>
         </>
     );
 }

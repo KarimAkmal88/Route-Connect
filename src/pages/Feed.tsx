@@ -49,7 +49,7 @@ export default function Feed() {
   return (
     <>
       {isLoading && posts.length === 0 ? (
-        <Card className="max-w-3xl space-y-5 p-4 mx-auto" radius="lg">
+        <Card className="w-full border border-border bg-surface space-y-5 p-5 mx-auto" radius="lg">
           <Skeleton className="rounded-lg">
             <div className="h-24 rounded-lg bg-default-300" />
           </Skeleton>
@@ -67,16 +67,16 @@ export default function Feed() {
         </Card>
       ) : isError && posts.length === 0 ? (
         <div className="bg-elevated text-text-primary p-4 max-w-3xl mx-auto mt-10 rounded-xl">
-          <p className="text-2xl mb-4">{error.message}</p>
+          <p className="text-base break-words mb-4">{error.message}</p>
           <Button color="secondary" onClick={refetch}>Retry</Button>
         </div>
       ) : (
-        <div className="max-w-3xl my-10 mx-auto">
+        <div className="w-full">
           {isFetching && !isFetchingNextPage && posts.length > 0 && (
             <Spinner className="mb-4 mx-auto block" size="sm" />
           )}
 
-          <div className="grid gap-4 rounded-2xl bg-elevated border border-text-secondary text-text-primary">
+          <div className="grid min-w-0 gap-5 text-text-primary">
             <CreatePost />
 
             {posts.map((post) => (

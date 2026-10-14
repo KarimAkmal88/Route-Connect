@@ -36,7 +36,7 @@ export default function DeletePost({ postId, postIsDeleted }: { postId: string; 
     <>
       <Eraser onClick={() => {
         onOpen();
-      }} className="cursor-pointer" />
+      }} className="cursor-pointer rounded-lg p-2 w-9 h-9 text-text-secondary hover:bg-danger-50 hover:text-danger" aria-label="Delete post" />
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
           {(onClose) => (
@@ -51,11 +51,11 @@ export default function DeletePost({ postId, postIsDeleted }: { postId: string; 
                   }
               </ModalBody>
               <ModalFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
-                  No
+                <Button variant="light" onPress={onClose}>
+                  Cancel
                 </Button>
-                <Button color="primary" onPress={() => mutate(postId)} isLoading={isPending} >
-                  Yes
+                <Button color="danger" onPress={() => mutate(postId)} isLoading={isPending} >
+                  Delete post
                 </Button>
               </ModalFooter>
             </>

@@ -54,8 +54,9 @@ export default function SignIn() {
 
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <Form className="w-full max-w-3xl grid gap-4 bg-surface m-auto text-text-primary border border-text-secondary px-2 rounded-xl p-6" onSubmit={handleSubmit(signIn)}>
+    <div className="flex items-center justify-center">
+      <Form className="w-full max-w-md grid gap-5 bg-surface m-auto text-text-primary border border-border rounded-2xl p-5 sm:p-8" onSubmit={handleSubmit(signIn)}>
+        <div className="mb-1"><h1 className="text-2xl font-bold tracking-tight">Welcome back</h1><p className="mt-1 text-sm text-text-secondary">Sign in to catch up with your community.</p></div>
         <Input
           {...register('email')}
           {...getInputProps("email", "Email")}
@@ -87,15 +88,15 @@ export default function SignIn() {
           type={isVisible ? "text" : "password"}
           variant="bordered"
         />
-        <div className="flex gap-6 items-center justify-center">
-          <Button isLoading={isLoading} color="primary" type="submit" className="border border-text-secondary px-2 rounded-xl">
+        <div className="grid grid-cols-2 gap-3 mt-2">
+          <Button isLoading={isLoading} color="primary" type="submit" className="min-h-11 rounded-lg">
             Sign In
           </Button>
-          <Button className="border border-text-secondary px-2 rounded-xl" onClick={() => reset()}>
+          <Button className="min-h-11 rounded-lg" onClick={() => reset()}>
             Reset
           </Button>
         </div>
-        <p className="text-text-primary">Don't have an account? <Link to={'/signup'}>Register now</Link></p>
+        <p className="text-sm text-text-secondary">Don't have an account? <Link className="text-secondary font-semibold hover:underline" to={'/signup'}>Register now</Link></p>
         {errMsg && (
           <Alert hideIcon color="danger" title={errMsg} variant="faded" classNames={{ base: "py-0 capitalize text-center" }} />
         )}

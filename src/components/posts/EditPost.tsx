@@ -71,21 +71,21 @@ export default function EditPost({ postId, body, onCancel, image }: { postId: st
 
   return (
     <>
-      <div className="bg-white rounded-lg mb-6 p-6 shadow-md">
+      <div className="bg-elevated rounded-xl my-4 p-3 sm:p-4">
         <form className="space-y-4" onSubmit={editPost}>
           <div>
-            <textarea
+            <textarea aria-label="Edit post text"
               value={editedBody}
               onChange={(e) => setEditedBody(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none text-background">
+              className="w-full bg-background text-sm px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent resize-none text-text-primary">
             </textarea>
           </div>
           {
-            isError && <p className="text-red-500">Failed to edit the post. Please try again.</p>
+            isError && <p className="text-error">Failed to edit the post. Please try again.</p>
           }
           <div className="relative">
             {(previewUrl || image) && (
-              <img src={previewUrl ? previewUrl : image} alt="Preview" className="w-full max-h-64 object-cover rounded-lg text-background" />)
+              <img src={previewUrl ? previewUrl : image} alt="Preview" className="w-full max-h-64 object-contain rounded-lg text-text-primary" />)
             }
             {
               previewUrl &&
@@ -96,7 +96,7 @@ export default function EditPost({ postId, body, onCancel, image }: { postId: st
                   fileInputRef.current!.value = ""
                 }}
                 type="button"
-                className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-2 hover:bg-red-600 transition duration-200"
+                aria-label="Remove selected image" className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-2 hover:bg-red-600 transition duration-200"
               >
                 <svg
                   className="w-4 h-4"
@@ -114,9 +114,9 @@ export default function EditPost({ postId, body, onCancel, image }: { postId: st
               </button>
             }
           </div>
-          <div className="flex items-center justify-between">
+          <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center space-x-3">
-              <label className="cursor-pointer text-gray-600 hover:text-blue-600 transition duration-200">
+              <label className="cursor-pointer text-text-secondary hover:text-secondary transition duration-200">
                 <input
                   onChange={(event) => {
                     setNewImage(event.target.files);
@@ -152,7 +152,7 @@ export default function EditPost({ postId, body, onCancel, image }: { postId: st
                   onCancel()
                 }}
                 type="button"
-                className="px-4 py-2 text-gray-600 hover:text-gray-800 transition duration-200 disabled:opacity-50"
+                className="px-4 py-2 text-text-secondary hover:text-text-primary transition duration-200 disabled:opacity-50"
               >
                 Cancel
               </button>
@@ -160,7 +160,7 @@ export default function EditPost({ postId, body, onCancel, image }: { postId: st
                 disabled={isPending}
 
                 type="submit"
-                className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition duration-200"
+                className="bg-primary text-white px-6 py-2 rounded-md hover:bg-primary-hover disabled:opacity-50 disabled:cursor-not-allowed transition duration-200"
               >
                 {isPending ?
                   <span className="flex items-center space-x-2">

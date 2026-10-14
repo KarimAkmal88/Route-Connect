@@ -65,12 +65,12 @@ export default function CommentForm({ postId, parentId, comment, onDone, onCance
         mutation.mutate(formData);
     }
 
-    return <form onSubmit={submit} className="space-y-3 rounded-lg border border-divider p-3">
+    return <form onSubmit={submit} className="min-w-0 space-y-3 text-sm">
         <textarea aria-label={`${comment ? "Edit" : "Write"} ${label}`} value={content}
             onChange={(event) => setContent(event.target.value)} disabled={mutation.isPending}
             placeholder={`Write a ${label}...`} rows={3}
-            className="w-full resize-y rounded-lg border border-divider bg-surface p-3 text-text-primary" />
-        {(preview || comment?.image) && <img src={preview || comment?.image} alt="Attached image preview" className="max-h-64 rounded-lg object-contain" />}
+            className="w-full resize-y rounded-lg border border-border/60 bg-background/40 p-3 text-text-primary placeholder:text-text-secondary" />
+        {(preview || comment?.image) && <img src={preview || comment?.image} alt="Attached image preview" className="max-h-64 max-w-full rounded-lg object-contain" />}
         {image && <Button size="sm" variant="light" isDisabled={mutation.isPending} onPress={() => selectImage()}>Remove selected image</Button>}
         <label className="block text-sm text-text-secondary">
             {comment?.image ? "Replace image" : "Attach image (optional)"}
@@ -79,7 +79,7 @@ export default function CommentForm({ postId, parentId, comment, onDone, onCance
         </label>
         {validationError && <p role="alert" className="text-error">{validationError}</p>}
         {mutation.isError && <p role="alert" className="text-error">Failed to {comment ? "save" : "create"} {label}. Please try again.</p>}
-        <div className="flex justify-end gap-2">
+        <div className="flex flex-wrap justify-end gap-2">
             {onCancel && <Button variant="light" isDisabled={mutation.isPending} onPress={onCancel}>Cancel</Button>}
             <Button type="submit" color="primary" isLoading={mutation.isPending}>{comment ? "Save" : `Send ${label}`}</Button>
         </div>

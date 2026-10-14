@@ -10,8 +10,6 @@ import {
 } from "@heroui/react";
 import { Link } from "react-router-dom";
 import defaultProfile from '../assets/logos/default-profile-image.jpg';
-import samarLogo from '../assets/logos/samar-app-icon.png';
-import samarWord from '../assets/logos/samar-wordmark-light.png';
 import { useAuth } from "../hooks/useAuth";
 
 export default function Navbar() {
@@ -19,31 +17,30 @@ export default function Navbar() {
   const { logout } = useAuth()
 
   return (
-    <HeroUiNavbar className="py-1 border-b border-b-text-secondary rounded-2xl" maxWidth="full" classNames={{ wrapper: 'grow' }}>
+    <HeroUiNavbar className="border-b border-border bg-background" maxWidth="xl" classNames={{ wrapper: 'gap-3 px-4 sm:px-6' }} isBlurred={false}>
       <NavbarBrand>
-        <Link to={"/"} className="px-2 py-3 flex flex-row gap-2">
-          <img src={samarLogo} alt="samar" className="w-13 h-12"></img>
-          <img src={samarWord} alt="samar-wordmark" className="h-10"></img>
+        <Link to={"/"} className="flex items-center gap-2 text-xl font-bold tracking-tight sm:text-2xl" aria-label="Route Connect home">
+          <span className="text-text-primary">Route</span><span className="text-secondary">Connect</span>
         </Link>
       </NavbarBrand>
 
-      <NavbarContent as="div" justify="end" className="py-3 flex flex-row gap-1 px-5 ml-20 md:ml-0">
+      <NavbarContent as="div" justify="end" className="grow-0 gap-2">
         <Dropdown placement="bottom-start">
           <DropdownTrigger>
             <Avatar
               isBordered
               as="button"
-              className="transition-transform w-12 h-12 rounded-full border ring-1 ring-primary cursor-pointer object-cover overflow-hidden "
+              className="transition-transform w-9 h-9 sm:w-10 sm:h-10 rounded-full ring-secondary cursor-pointer object-cover shrink-0"
               color="secondary"
               name={"user name"}
               src={defaultProfile}
             />
           </DropdownTrigger>
-          <DropdownMenu aria-label="Profile Actions" variant="flat" className="bg-elevated flex flex-col gap-3 rounded-xl ">
+          <DropdownMenu aria-label="Profile Actions" variant="flat" className="bg-surface text-text-primary rounded-xl">
             <DropdownItem key="profile">
               <Link className="h-14 text-text-primary" to="/profile">
-                <p className="font-semibold">Signed in as</p>
-                <p className="font-semibold">test@test.test</p>
+                <p className="font-semibold">Your profile</p>
+                <p className="text-xs text-text-secondary">View your community profile</p>
               </Link>
             </DropdownItem>
             <DropdownItem key="logout" className="text-danger" onClick={logout}>

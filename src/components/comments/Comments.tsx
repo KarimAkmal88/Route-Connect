@@ -23,7 +23,9 @@ export default function Comments({ postId, parentId, enabled = true }: { postId:
     const comments = query.data?.pages.flatMap((page) => page.items) ?? [];
     const label = parentId ? "replies" : "comments";
 
-    return <section aria-label={label} className="space-y-4 rounded-lg bg-elevated p-4 text-text-primary">
+    return <section aria-label={label} className={parentId
+        ? "min-w-0 space-y-4 text-text-primary"
+        : "min-w-0 space-y-5 rounded-2xl border border-border bg-surface p-4 sm:p-5 text-text-primary"}>
         {!parentId && <>
             <h2 className="text-lg font-semibold">Comments</h2>
             <CommentForm postId={postId} />
@@ -36,7 +38,7 @@ export default function Comments({ postId, parentId, enabled = true }: { postId:
                 else void query.refetch();
             }}>Retry</Button>
         </div>}
-        {query.isSuccess && comments.length === 0 && <p className="text-text-secondary">No {label} yet.</p>}
+        {query.isSuccess && comments.length === 0 && <p className="py-2 text-sm text-text-secondary">No {label} yet.</p>}
         {comments.map((comment) => <Comment key={comment._id} comment={comment} postId={postId} parentId={parentId} />)}
         {query.hasNextPage && <Button variant="flat" isLoading={query.isFetchingNextPage} isDisabled={query.isFetching}
             onPress={() => { void query.fetchNextPage(); }}>Load more {label}</Button>}

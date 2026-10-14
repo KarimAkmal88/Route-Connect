@@ -81,7 +81,7 @@ export default function CreatePost() {
 
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+    <div className="bg-surface rounded-2xl border border-border p-4 sm:p-5">
         {
           showForm ? <form  className="space-y-4" onSubmit={handleSubmit(createPost)}>
           <div>
@@ -93,21 +93,21 @@ export default function CreatePost() {
                 return true;
               }})}
               placeholder="What's on your mind?"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none text-black"
+              className="w-full bg-background text-sm px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent resize-none text-text-primary"
             />
-            {errors.body && <p className="text-red-600">{errors.body.message}</p>}
+            {errors.body && <p className="text-error">{errors.body.message}</p>}
           </div>
             {
               file && previewUrl && <div className="relative">
               <img
                 src={previewUrl}
                 alt="Preview"
-                className="w-full max-h-64 object-cover rounded-lg"
+                className="w-full max-h-64 object-contain rounded-lg"
               />
               <button
                 onClick={() =>{ resetField('image'); clearImagePreview();} }
                 type="button"
-                className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-2 hover:bg-red-600 transition duration-200"
+                aria-label="Remove selected image" className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-2 hover:bg-red-600 transition duration-200"
               >
                 <svg
                   className="w-4 h-4"
@@ -125,14 +125,14 @@ export default function CreatePost() {
               </button>
             </div>
             }
-            {isError && <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-2 rounded-md text-sm">
-               <p className="text-red-500">Posting failed please try again.</p>
+            {isError && <div className="bg-danger-50 border border-danger-200 text-danger px-4 py-2 rounded-md text-sm">
+               <p className="text-error">Posting failed please try again.</p>
             </div>
              }
             
-          <div className="flex items-center justify-between">
+          <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center space-x-3">
-              <label className="cursor-pointer text-gray-600 hover:text-blue-600 transition duration-200">
+              <label className="cursor-pointer text-text-secondary hover:text-secondary transition duration-200">
                 <input
                   {...imageRegistration}
                   onChange={(event) => {
@@ -172,14 +172,14 @@ export default function CreatePost() {
                   setShowForm(false);
                 }}
                 type="button"
-                className="px-4 py-2 text-gray-600 hover:text-gray-800 transition duration-200 disabled:opacity-50"
+                className="px-4 py-2 text-text-secondary hover:text-text-primary transition duration-200 disabled:opacity-50"
               >
                 Cancel
               </button>
                <button
                 disabled={isPending}
                 type="submit"
-                className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition duration-200"
+                className="bg-primary text-white px-6 py-2 rounded-md hover:bg-primary-hover disabled:opacity-50 disabled:cursor-not-allowed transition duration-200"
               >
                   {
                     isPending ? <span className="flex items-center space-x-2">
@@ -215,7 +215,7 @@ export default function CreatePost() {
         :
         <button
           onClick={() => setShowForm(true)}
-          className="w-full cursor-pointer text-left text-gray-500 hover:text-gray-700 bg-gray-100 rounded-lg px-4 py-3 transition duration-200"
+          className="w-full cursor-pointer text-sm text-left text-text-secondary hover:text-text-primary bg-elevated border border-border rounded-xl px-4 py-4 transition duration-200"
         >
           What's on your mind? Share a post...
         </button>
