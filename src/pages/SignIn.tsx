@@ -36,16 +36,20 @@ export default function SignIn() {
       setSuccessMsg(response.message);
 
     } catch (error) {
-      if (localStorage.getItem('token')) {
+      if (localStorage.getItem("token")) {
         logout();
       }
+
       if (axios.isAxiosError(error)) {
-        setErrMsg(error.response?.data.message);
-        if (!error.response?.data.message) {
-          setErrMsg('Network error')
+        if (!error.response) {
+          setErrMsg("Unable to connect. Please try again later.");
+        } else if ([400, 401, 422].includes(error.response.status)) {
+          setErrMsg("Invalid email or password. Please try again.");
+        } else {
+          setErrMsg("Something went wrong. Please try again.");
         }
       } else {
-        setErrMsg('Unexpected error')
+        setErrMsg("Something went wrong. Please try again.");
       }
     } finally {
       setIsLoading(false);

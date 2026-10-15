@@ -28,7 +28,7 @@ export default function Post({ post, showTopComment, postIsDeleted }: { post: Po
         {post.user._id === userData?._id && (
           <>
             <div className="flex shrink-0 flex-row justify-center items-center gap-2 text-text-secondary">
-              <DeletePost postId={post._id} postIsDeleted={postIsDeleted}/>
+              <DeletePost postId={post._id} postIsDeleted={postIsDeleted} />
               <Pen className="cursor-pointer rounded-lg p-2 w-9 h-9 hover:bg-elevated hover:text-secondary" onClick={() => setIsEditing(true)} />
             </div>
           </>
@@ -95,7 +95,7 @@ export default function Post({ post, showTopComment, postIsDeleted }: { post: Po
           </svg>
           <span className="font-medium text-xs sm:text-sm">Like</span>
         </button>
-        <button className="flex min-w-0 flex-row justify-center items-center gap-1.5 rounded-lg py-2 cursor-pointer text-text-secondary hover:bg-elevated hover:text-secondary transition-colors">
+        <Link to={`/posts/${post._id}`} className="flex min-w-0 flex-row justify-center items-center gap-1.5 rounded-lg py-2 cursor-pointer text-text-secondary hover:bg-elevated hover:text-secondary transition-colors">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width={18}
@@ -110,7 +110,7 @@ export default function Post({ post, showTopComment, postIsDeleted }: { post: Po
             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
           </svg>
           <span className="font-medium text-xs sm:text-sm">Comment</span>
-        </button>
+        </Link>
         <button className="flex min-w-0 flex-row justify-center items-center gap-1.5 rounded-lg py-2 cursor-pointer text-text-secondary hover:bg-elevated hover:text-secondary transition-colors">
           <svg
             xmlns="http://www.w3.org/2000/svg"

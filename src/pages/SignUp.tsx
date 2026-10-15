@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import { Form, Input, Button, Select, SelectItem, Alert, } from "@heroui/react";
-import { EyeSlashFilledIcon, EyeFilledIcon } from '../types/Icons'
-import { gender } from '../types/gender'
-import { getInputProps } from "../utils/helpers";
-import { useForm } from "react-hook-form";
+import { Alert, Button, Form, Input, Select, SelectItem, } from "@heroui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signUpSchema } from "../schemas/signUpSchema";
-import type { RegisterData } from "../schemas/signUpSchema"
-import { authServices } from "../services/authService";
-import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import type { RegisterData } from "../schemas/signUpSchema";
+import { signUpSchema } from "../schemas/signUpSchema";
+import { authServices } from "../services/authService";
+import { EyeFilledIcon, EyeSlashFilledIcon } from '../types/Icons';
+import { gender } from '../types/gender';
+import { getInputProps } from "../utils/helpers";
 
 export default function SignUp() {
 
@@ -35,12 +35,17 @@ export default function SignUp() {
       navigate('/signin')
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        setErrMsg(error.response?.data.message);
-        if (!error.response?.data.message) {
-          setErrMsg('Network error');
+        if (!error.response) {
+          setErrMsg("Unable to connect. Please try again later.");
+        } else if (error.response.status === 409) {
+          setErrMsg("This email is already registered.");
+        } else if ([400, 422].includes(error.response.status)) {
+          setErrMsg("Please check your information and try again.");
+        } else {
+          setErrMsg("Something went wrong. Please try again.");
         }
       } else {
-        setErrMsg('Unexpected error');
+        setErrMsg("Something went wrong. Please try again.");
       }
     } finally {
       setIsLoading(false);
